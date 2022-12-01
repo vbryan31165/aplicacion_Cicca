@@ -22,6 +22,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     private List<Usuario> originalItems;
     private RecyclerItemClick itemClick;
 
+
     public RecyclerAdapter(List<Usuario> items, RecyclerItemClick itemClick) {
         this.items = items;
         this.itemClick = itemClick;
@@ -41,7 +42,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         final Usuario item = items.get(position);
         String rol_u = "";
         if(item.getID_ROL() == 2){rol_u = "Docente";}
-        holder.name.setText(String.format("%s%s", item.getNOMBRES(), item.getAPELLIDOS()));
+        holder.name.setText(String.format("%s %s", item.getNOMBRES(), item.getAPELLIDOS()));
         holder.rol.setText(rol_u);
         holder.id_x.setText(String.valueOf(item.getID_USUARIO()));
 
@@ -77,7 +78,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 items.clear();
                 List<Usuario> collect = originalItems.stream()
-                        .filter(i -> i.getNOMBRES().toLowerCase().contains(strSearch))
+                        .filter(i -> String.format("%s %s", i.getNOMBRES(), i.getAPELLIDOS()).toLowerCase().contains(strSearch))
                         .collect(Collectors.toList());
 
                 items.addAll(collect);

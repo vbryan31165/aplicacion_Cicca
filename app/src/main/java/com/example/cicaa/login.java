@@ -62,9 +62,6 @@ public class login extends AppCompatActivity {
         if(inp_email.getText().toString().isEmpty() || inp_pass.getText().toString().isEmpty()) {
             Toast.makeText(this, "Hay campos vacíos", Toast.LENGTH_SHORT).show();
 
-            /* Intent intent = new Intent(login.this, dashboard.class);
-            startActivity(intent);
-            finish();********/
 
 
         }else{
@@ -87,7 +84,7 @@ public class login extends AppCompatActivity {
                         try {
                             String tokenCode = JWTDecode.decoded(response.body().getToken(),getApplicationContext());
                             JSONObject object= new JSONObject(tokenCode);
-                            Toast.makeText(login.this, " eg: "+ object, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(login.this, " eg: "+ object, Toast.LENGTH_SHORT).show();
                             //.n_identificacion=object.getString("n_identificacion");
                             //.id_cliente=object.getInt("id_cliente");
                             //.id_persona=object.getInt("id_persona");

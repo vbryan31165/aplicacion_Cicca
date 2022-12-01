@@ -1,15 +1,17 @@
 package com.example.cicaa;
 
+import static androidx.appcompat.widget.SearchView.*;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
-
 import java.util.List;
-
 import com.example.cicaa.adapters.RecyclerAdapter;
 import com.example.cicaa.model.Usuario;
 import com.example.cicaa.service.ApiClient;
@@ -20,7 +22,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class dashboard extends AppCompatActivity implements RecyclerAdapter.RecyclerItemClick, SearchView.OnQueryTextListener {
+public class dashboard extends AppCompatActivity implements RecyclerAdapter.RecyclerItemClick, OnQueryTextListener {
+
     private RecyclerView rvLista;
     private SearchView svSearch;
     private RecyclerAdapter adapter;
@@ -55,23 +58,6 @@ public class dashboard extends AppCompatActivity implements RecyclerAdapter.Recy
         svSearch.setOnQueryTextListener(this);
     }
 
-    /*private List<Usuario> getItems() {
-        List<Usuario> itemLists = new ArrayList<>();
-        itemLists.add(new ItemList("Saga de Broly", "Ultima pelicula de DB, peleas epicas.", R.drawable.saga_broly));
-        itemLists.add(new ItemList("Super sayayines 4", "La ultima transformacion de la saga no canon.", R.drawable.ssj4s));
-        itemLists.add(new ItemList("Super Sayayiness Blues", "Goku y Vegeta, la transformacion de dioses.", R.drawable.ssj_blues));
-        itemLists.add(new ItemList("Goku ultrainstinto", "Infaltablñe power-up a Goku.", R.drawable.ultrainsitinto));
-        itemLists.add(new ItemList("Super Vegeta Blue x2", "Diferentes transformaciones de super Vegeta.", R.drawable.super_vegeta));
-        itemLists.add(new ItemList("Vegeta sapbe", "Vegeta sapbe o no sapbe xD.", R.drawable.vegeta_blue));
-        itemLists.add(new ItemList("Saga de Broly", "Ultima pelicula de DB, peleas epicas.", R.drawable.saga_broly));
-        itemLists.add(new ItemList("Super sayayines 4", "La ultima transformacion de la saga no canon.", R.drawable.ssj4s));
-        itemLists.add(new ItemList("Super Sayayiness Blues", "Goku y Vegeta, la transformacion de dioses.", R.drawable.ssj_blues));
-        itemLists.add(new ItemList("Goku ultrainstinto", "Infaltablñe power-up a Goku.", R.drawable.ultrainsitinto));
-        itemLists.add(new ItemList("Super Vegeta Blue x2", "Diferentes transformaciones de super Vegeta.", R.drawable.super_vegeta));
-        itemLists.add(new ItemList("Vegeta sapbe", "Vegeta sapbe o no sapbe xD.", R.drawable.vegeta_blue));
-
-        return itemLists;
-    }*/
     private void getusuarios() {
         apiusuarios.getUsuarios().enqueue(new Callback<List<Usuario>>() {
             @Override
@@ -79,9 +65,9 @@ public class dashboard extends AppCompatActivity implements RecyclerAdapter.Recy
                 if(response.isSuccessful()) {
                     items = response.body();
 
-                    Toast.makeText(dashboard.this, "E: "+items.get(0).getNOMBRES(), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(dashboard.this, "E: "+items.get(0).getNOMBRES(), Toast.LENGTH_LONG).show();
                     Log.e("...",items.get(0).getNOMBRES());
-                    adapter = new RecyclerAdapter(items, dashboard.this);
+                    adapter = new RecyclerAdapter(items, (RecyclerAdapter.RecyclerItemClick) dashboard.this);
 
                     rvLista.setAdapter(adapter);
                 }
@@ -93,7 +79,7 @@ public class dashboard extends AppCompatActivity implements RecyclerAdapter.Recy
 
             @Override
             public void onFailure(Call<List<Usuario>> call, Throwable t) {
-                Toast.makeText(dashboard.this, "Errror: "+t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(dashboard.this, "Error: "+t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -101,9 +87,9 @@ public class dashboard extends AppCompatActivity implements RecyclerAdapter.Recy
 
     @Override
     public void itemClick(Usuario item) {
-        //Intent intent = new Intent(this, DetailActivity.class);
-       // intent.putExtra("itemDetail", item);
-        //startActivity(intent);
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra("itemDetail", item);
+        startActivity(intent);
     }
 
     @Override
@@ -117,47 +103,3 @@ public class dashboard extends AppCompatActivity implements RecyclerAdapter.Recy
         return false;
     }
 }
- /*   private RecyclerView recyclerView;
-    private List<Usuario> Usuarios;
-    private UsuarioAdapter usuarioAdapter;
-    private Apiusuarios apiusuarios;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
-
-
-        recyclerView = findViewById(R.id.lst);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        showUsuarios();
-
-
-    }
-
-    public void showUsuarios(){
-
-        apiusuarios = ApiClient.getPeticionUsuarios();
-
-        apiusuarios.getUsuarios().enqueue(new Callback<List<Usuario>>() {
-            @Override
-            public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
-                Usuarios = response.body();
-                usuarioAdapter = new UsuarioAdapter(Usuarios, dashboard.this);
-
-                recyclerView.setAdapter(usuarioAdapter);
-
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Usuario>> call, Throwable t) {
-
-                Toast.makeText(dashboard.this, "Errror: "+t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-
-    }
-
-
-}*/

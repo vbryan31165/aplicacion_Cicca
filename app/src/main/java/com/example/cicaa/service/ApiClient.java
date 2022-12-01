@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
     private static Retrofit retrofit(){
         return new Retrofit.Builder()
-                .baseUrl("http://192.168.101.22:5000/")
+                .baseUrl("http://192.168.20.55:5000/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
@@ -16,4 +16,6 @@ public class ApiClient {
     }
 
     public static Apiusuarios getPeticionUsuarios() { return retrofit().create(Apiusuarios.class); }
+
+    public static Apipermisos getPeticionPermisos(){ return retrofit().create(Apipermisos.class); }
 }
