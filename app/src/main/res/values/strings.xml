@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Cicaa</string>
+    <string name="link_r">Recuperar Contraseña</string>
+    <string name="btn_l">Iniciar</string>
+    <string name="inp_email">Ingresar tu correo CICAA</string>
+    <string name="inp_pass">Ingresar tu contraseña CICAA</string>
+    <string name="logo_l">cicaa</string>
+</resources>
