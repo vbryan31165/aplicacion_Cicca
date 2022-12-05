@@ -79,6 +79,7 @@ DetailActivity extends  AppCompatActivity implements PermisosAdapter.PRecyclerIt
                         rvLista.setAdapter(adapter);
                     }else{
                         Toast.makeText(DetailActivity.this, "No tienes permisos", Toast.LENGTH_LONG).show();
+                        finish();
                     }
 
 
