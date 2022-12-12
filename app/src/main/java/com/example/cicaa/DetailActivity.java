@@ -33,6 +33,7 @@ DetailActivity extends  AppCompatActivity implements PermisosAdapter.PRecyclerIt
     private List<Permisos> items;
     private Apipermisos apipermisos;
     private Usuario itemDetail;
+    private boolean permiso=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +41,9 @@ DetailActivity extends  AppCompatActivity implements PermisosAdapter.PRecyclerIt
 
         initViews();
         initValues();
-        initListener();
+        if(permiso){
+            initListener();
+        }
     }
 
     private void initViews(){
@@ -71,6 +74,7 @@ DetailActivity extends  AppCompatActivity implements PermisosAdapter.PRecyclerIt
             public void onResponse(Call<List<Permisos>> call, Response<List<Permisos>> response) {
                 if(response.isSuccessful()) {
                     if(response.body().size() > 0){
+                        permiso=true;
                         items = response.body();
                         //Toast.makeText(DetailActivity.this, "E: "+items.get(0).getNOMBRES(), Toast.LENGTH_LONG).show();
                         Log.e("...",items.get(0).getNOMBRES());
@@ -79,7 +83,7 @@ DetailActivity extends  AppCompatActivity implements PermisosAdapter.PRecyclerIt
                         rvLista.setAdapter(adapter);
                     }else{
                         Toast.makeText(DetailActivity.this, "No tienes permisos", Toast.LENGTH_LONG).show();
-                        finish();
+                        //finish();
                     }
 
 
